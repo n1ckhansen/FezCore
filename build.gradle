@@ -1,18 +1,43 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
-
-sourceCompatibility = 1.5
-version = '1.0'
-jar {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart',
-                   'Implementation-Version': version
+buildscript {
+    repositories {
+        jcenter()
     }
 }
 
-repositories {
-    mavenCentral()
+plugins {
+    id "com.jfrog.bintray" version "1.7"
 }
+
+group = "com.blackfez"
+version = "0.0.1"
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'com.jfrog.bintray'
+    apply plugin: 'maven-publish'
+}
+
+bintray {
+    user = System.getenv( 'BINTRAY_USER' )
+    key = System.getenv( 'BINTRAY_KEY' )
+    configurations = ['archives']
+    pkg {
+        repo = 'blackfezjava'
+        name = 'fezcore'
+        userOrg = user
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/n1ckhansen/FezCore.git'
+        version {
+            name = '0.0.1'
+            released = new Date()
+        }
+    }
+}
+
 
 dependencies {
     compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
@@ -23,10 +48,62 @@ test {
     systemProperties 'property': 'value'
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
+task sourcesJar( type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+javadoc.failOnError = false
+task javadocJar( type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "n1ckhansen"
+            name "Nick Hansen"
+            email "nhansen@blackfez.com"
+        }
+    }
+    scm {
+        url "https://github.com/n1ckhansen/FircBot"
+    }
+}
+
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+            groupId 'com.blackfez'
+            artifactId 'fezcore'
+            version '0.0.1'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Core reusable classes in the BFP mold')
+                root.appendNode('name', 'FezCore')
+                root.appendNode('url', 'https://github.com/n1ckhansen/fezcore')
+                root.children().last() + pomConfig
+            }
+        }
     }
 }
