@@ -9,7 +9,9 @@ pipeline {
     stage('Build') {
       steps {
         sh './gradlew clean'
-        sh './gradlew assembleDist'
+        sh './gradlew check'
+        sh './gradlew buildEnvironment'
+        sh './gradlew jar'
       }
     }
   }
