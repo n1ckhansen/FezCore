@@ -21,6 +21,9 @@ println ""
 def currentBranch = grgit.branch.current().getName()
 def branchWart = ""
 
+if( env.BRANCH_NAME ) {
+    currentBranch = env.BRANCH_NAME
+}
 
 if( currentBranch != 'master' ) {
     branchWart = currentBranch + "."
