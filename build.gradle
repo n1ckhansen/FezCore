@@ -12,6 +12,8 @@ plugins {
 group = "com.blackfez"
 version = "0.1"
 
+println "Current branch is " + grgit.branch.current().getName()
+
 def currentBranch = grgit.branch.current().getName()
 def branchWart = ""
 
