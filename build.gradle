@@ -19,18 +19,18 @@ println "Current branch name is " + grgit.branch.current().getName()
 println ""
 
 def currentBranch = grgit.branch.current().getName()
-def branchWart = ""
+def branchWart = "."
 
-if( env.BRANCH_NAME ) {
-    currentBranch = env.BRANCH_NAME
+if( System.env.BRANCH_NAME ) {
+    currentBranch = System.env.BRANCH_NAME
 }
 
 if( currentBranch != 'master' ) {
-    branchWart = currentBranch + "."
+    branchWart = branchWart + currentBranch
 }
 
 if( System.env.BUILD_NUMBER ) {
-    version = version + "." + branchWart + System.env.BUILD_NUMBER
+    version = version + branchWart + "." + System.env.BUILD_NUMBER
 }
 else {
     version = version + branchWart + ".LOCAL"
