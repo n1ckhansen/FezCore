@@ -12,29 +12,20 @@ plugins {
 group = "com.blackfez"
 version = "0.1"
 
-println "Current branch is " + grgit.branch.current()
-println "Current branch fullName is " + grgit.branch.current().fullName
-println "Current branch trackingBranch is " + grgit.branch.current().trackingBranch
-println "Current branch name is " + grgit.branch.current().getName()
-println ""
-
 def currentBranch = grgit.branch.current().getName()
-def branchWart = "."
+def buildnumber = "LOCAL"
+def wart = ""
 
 if( System.env.BRANCH_NAME ) {
     currentBranch = System.env.BRANCH_NAME
+    buildnumber = System.env.BUILD_NUMBER
 }
 
 if( currentBranch != 'master' ) {
-    branchWart = branchWart + currentBranch
+    wart = currentBranch + "."
 }
 
-if( System.env.BUILD_NUMBER ) {
-    version = version + branchWart + "." + System.env.BUILD_NUMBER
-}
-else {
-    version = version + branchWart + ".LOCAL"
-}
+version = version + "." + wart + buildnumber
 
 allprojects {
     repositories {
