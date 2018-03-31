@@ -11,6 +11,7 @@ pipeline {
         sh './gradlew clean'
         sh './gradlew check'
         sh './gradlew buildEnvironment'
+        sh './gradlew properties'
         sh './gradlew jar'
       }
     }

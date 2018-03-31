@@ -6,10 +6,26 @@ buildscript {
 
 plugins {
     id "com.jfrog.bintray" version "1.7"
+    id 'org.ajoberstar.grgit' version '2.1.1'
 }
 
 group = "com.blackfez"
-version = "0.0.1"
+version = "0.1"
+
+def currentBranch = grgit.branch.current().getName()
+def branchWart = ""
+
+
+if( currentBranch != 'master' ) {
+    branchWart = currentBranch + "."
+}
+
+if( System.env.BUILD_NUMBER ) {
+    version = version + "." + branchWart + System.env.BUILD_NUMBER
+}
+else {
+    version = version + branchWart + ".LOCAL"
+}
 
 allprojects {
     repositories {
