@@ -48,7 +48,7 @@ bintray {
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/n1ckhansen/FezCore.git'
         version {
-            name = version
+            name = project.property( 'version' ) 
             released = new Date()
         }
     }
@@ -96,7 +96,7 @@ def pomConfig = {
         }
     }
     scm {
-        url "https://github.com/n1ckhansen/FircBot"
+        url "https://github.com/n1ckhansen/FezCore"
     }
 }
 
@@ -112,7 +112,7 @@ publishing {
             }
             groupId 'com.blackfez'
             artifactId 'fezcore'
-            version version
+            version project.property( 'version' )
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'Core reusable classes in the BFP mold')
