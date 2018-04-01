@@ -15,5 +15,13 @@ pipeline {
         sh './gradlew jar'
       }
     }
+    stage( 'Stage' ) {
+        when {
+            branch 'master'
+        }
+        steps {
+            sh './gradlew bintrayUpload'
+        }
+    }
   }
 }

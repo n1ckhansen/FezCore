@@ -48,7 +48,7 @@ bintray {
         licenses = ['GPL-3.0']
         vcsUrl = 'https://github.com/n1ckhansen/FezCore.git'
         version {
-            name = '0.0.1'
+            name = version
             released = new Date()
         }
     }
@@ -112,7 +112,7 @@ publishing {
             }
             groupId 'com.blackfez'
             artifactId 'fezcore'
-            version '0.0.1'
+            version version
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'Core reusable classes in the BFP mold')
