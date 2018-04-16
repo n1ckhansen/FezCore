@@ -38,6 +38,10 @@ public class ConfigurationManager implements IConfigurationManager {
 	}
 
 	public void saveConfiguration() throws IOException {
+		if( !CONFIG_FILE.exists() ) {
+			if( !CONFIG_FILE.getParentFile().exists() )
+				CONFIG_FILE.getParentFile().mkdirs();
+		}
 		ObjectSerializerIO.WriteObject( CONFIG_FILE, configBlocks );
 	}
 
