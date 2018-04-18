@@ -58,4 +58,9 @@ public class ConfigurationManager implements IConfigurationManager {
 		}
 	}
 
+	public void addConfigurationBlock(IConfigurationBlock block) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

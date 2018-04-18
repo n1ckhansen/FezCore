@@ -4,6 +4,6 @@ public interface IConfigurationManager {
 	
 	public IConfigurationBlock getConfigurationBlock( Class<?> type ) throws ClassNotFoundException;
 
-	public void setConfigurationBlock( IConfigurationBlock block );
+	public void addConfigurationBlock( IConfigurationBlock block );
 	
 }
