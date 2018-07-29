@@ -1,6 +1,8 @@
 package com.blackfez.fezcore.configurationmanager.interfaces;
 
-public interface IConfigurationBlock {
+import java.io.Serializable;
+
+public interface IConfigurationBlock extends Serializable {
 	
 	public Class<?> getBlockClass();
 

@@ -5,7 +5,7 @@ import com.blackfez.fezcore.messagemanager.MessageManager;
 public class MessageManagerTestHarness {
 
 	public static void main(String[] args) {
-		MessageManager mm = MessageManager.getInstance();
+		MessageManager mm = new MessageManager();
 		mm.addMessageProcessor( new DemoAsyncMessageProcessor("EchoScopedProccer", new HexScope( HexScope.ECHO )));
 		mm.addMessageProcessor( new DemoAsyncMessageProcessor("AddScopedProccer", new HexScope( HexScope.ADD )));
 		mm.addMessageProcessor( new DemoAsyncMessageProcessor("EverythingProccer", new HexScope( HexScope.ALL ) ) );
