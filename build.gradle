@@ -12,7 +12,17 @@ plugins {
 group = "com.blackfez"
 version = "0.1"
 
-def currentBranch = grgit.branch.current().getName()
+def currentBranch = '' 
+def sbout = new StringBuilder()
+def sberr = new StringBuilder()
+def process = "git branch".execute()
+process.consumeProcessOutput( sbout, sberr )
+process.waitForOrKill( 1000 )
+sbout.eachLine {
+    if( it.trim().startsWith( '*' ) )
+        currentBranch = it.trim().split( ' ' )[ 1 ]
+}
+
 def buildnumber = "LOCAL"
 def wart = ""
 
