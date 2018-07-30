@@ -1,7 +1,7 @@
 package com.blackfez.fezcore.messagemanager;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.blackfez.fezcore.messagemanager.interfaces.IMessage;
@@ -11,11 +11,11 @@ import com.blackfez.fezcore.utilities.threading.BoundedCachedThreadPool;
 
 public class AsyncMessageQueue implements IMessageQueue {
 
-	private final transient Set<IMessageProcessor> processors;
+	private final transient List<IMessageProcessor> processors;
 	private final transient BoundedCachedThreadPool pool;
 	
 	public AsyncMessageQueue() {
-		processors = new HashSet<IMessageProcessor>();
+		processors = new ArrayList<IMessageProcessor>();
 		pool = new BoundedCachedThreadPool();
 		pool.setThreads( 5 );
 	}
