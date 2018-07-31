@@ -28,6 +28,10 @@ public class MessageManager {
 		_asyncQueue.addProcessor(proccer);
 	}
 	
+	public void removeMessageProcessor( IMessageProcessor proccer ) {
+		_asyncQueue.removeProcessor( proccer );
+	}
+	
 	public void queueAsyncMessage( IAsyncMessage msg ) {
 		_asyncQueue.queueMessage( msg );
 	}
