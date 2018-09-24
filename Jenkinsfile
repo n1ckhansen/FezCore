@@ -20,7 +20,8 @@ pipeline {
             branch 'master'
         }
         steps {
-            sh './gradlew bintrayUpload'
+//            sh './gradlew bintrayUpload'
+              echo 'This is where I'd call the bintrayUpload gradle task'
         }
     }
   }
